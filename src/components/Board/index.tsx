@@ -11,7 +11,13 @@ function Board() {
 
   function renderBoard() {
     return grid.map((location, idx) => (
-      <button onClick={() => setPiece(idx, turn)}>{location}</button>
+      <button
+        data-testid="grid-location"
+        key={`${location}-${idx}`}
+        onClick={() => setPiece(idx, turn)}
+      >
+        {location}
+      </button>
     ));
   }
 
@@ -27,8 +33,13 @@ function Board() {
   }
 
   return (
-    <div className="grid grid-cols-3 m-auto max-w-md py-12">
-      {renderBoard()}
+    <div data-testid="board">
+      <div className="grid grid-cols-3 m-auto max-w-md py-12">
+        {renderBoard()}
+      </div>
+      <div className="flex justify-center">
+        <span>Turn: {turn}</span>
+      </div>
     </div>
   );
 }
