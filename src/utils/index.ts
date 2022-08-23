@@ -1,18 +1,19 @@
 import { BoardType } from '../components/Board';
 
+export const isRowAllOneTile = (row: String[]) => {
+  return (
+    row.filter((tile) => tile === 'X').length === 3 ||
+    row.filter((tile) => tile === 'O').length === 3
+  );
+};
+
 export const isRowWin = (board: BoardType) => {
   // Row 1
-  const isRowOneWin =
-    board[0].filter((tile) => tile === 'X').length === 3 ||
-    board[0].filter((tile) => tile === 'O').length === 3;
+  const isRowOneWin = isRowAllOneTile(board[0]);
   // Row 2
-  const isRowTwoWin =
-    board[1].filter((tile) => tile === 'X').length === 3 ||
-    board[1].filter((tile) => tile === 'O').length === 3;
+  const isRowTwoWin = isRowAllOneTile(board[1]);
   // Row 3
-  const isRowThreeWin =
-    board[2].filter((tile) => tile === 'X').length === 3 ||
-    board[2].filter((tile) => tile === 'O').length === 3;
+  const isRowThreeWin = isRowAllOneTile(board[2]);
 
   return isRowOneWin || isRowTwoWin || isRowThreeWin;
 };
@@ -39,4 +40,27 @@ export const rotateBoard = (board: BoardType) => {
     }
   }
   return newBoard;
+};
+
+export const leftToRightDiagonal = (board: BoardType) => {
+  const diagonal = [];
+
+  for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
+    const tile = board[rowIdx][rowIdx];
+    diagonal.push(tile);
+  }
+
+  return diagonal;
+};
+
+export const rightToLeftDiagonal = (board: BoardType) => {
+  const diagonal = [];
+
+  for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
+    const row = board[rowIdx];
+    const tile = board[rowIdx][row.length - 1 - rowIdx];
+    diagonal.push(tile);
+  }
+
+  return diagonal;
 };

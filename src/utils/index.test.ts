@@ -1,4 +1,24 @@
-import { isRowWin, isGameWon, rotateBoard, isColumnWin } from '.';
+import {
+  isRowWin,
+  isGameWon,
+  rotateBoard,
+  isColumnWin,
+  leftToRightDiagonal,
+  isRowAllOneTile,
+  rightToLeftDiagonal,
+} from '.';
+
+describe('isRowAllOneTile', () => {
+  test('returns true if row is all one tile', () => {
+    const row = ['X', 'X', 'X'];
+    expect(isRowAllOneTile(row)).toBeTruthy();
+  });
+
+  test('returns false if row is not all one tile', () => {
+    const row = ['O', 'O', 'X'];
+    expect(isRowAllOneTile(row)).toBeFalsy();
+  });
+});
 
 describe('isRowWin', () => {
   test('returns true for row win', () => {
@@ -110,5 +130,45 @@ describe('rotateBoard', () => {
       ['X', 'O', '?'],
     ];
     expect(rotateBoard(board1)).toEqual(board2);
+  });
+});
+
+describe('leftToRightDiagonal', () => {
+  test('gathers diagonal from left to right', () => {
+    const board1 = [
+      ['X', 'X', 'O'],
+      ['O', 'O', 'X'],
+      ['?', '?', 'O'],
+    ];
+    const diagonal1 = ['X', 'O', 'O'];
+    expect(leftToRightDiagonal(board1)).toEqual(diagonal1);
+
+    const board2 = [
+      ['O', 'X', 'O'],
+      ['O', 'X', 'X'],
+      ['?', '?', '?'],
+    ];
+    const diagonal2 = ['O', 'X', '?'];
+    expect(leftToRightDiagonal(board2)).toEqual(diagonal2);
+  });
+});
+
+describe('rightToLeftDiagonal', () => {
+  test('gathers diagonal from right to left', () => {
+    const board1 = [
+      ['?', 'X', 'O'],
+      ['O', 'O', '?'],
+      ['X', '?', 'O'],
+    ];
+    const diagonal1 = ['O', 'O', 'X'];
+    expect(rightToLeftDiagonal(board1)).toEqual(diagonal1);
+
+    const board2 = [
+      ['?', 'X', '?'],
+      ['O', 'X', '?'],
+      ['O', '?', 'O'],
+    ];
+    const diagonal2 = ['?', 'X', 'O'];
+    expect(rightToLeftDiagonal(board2)).toEqual(diagonal2);
   });
 });
