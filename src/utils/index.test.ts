@@ -3,6 +3,7 @@ import {
   isGameWon,
   rotateBoard,
   isColumnWin,
+  isDiagonalWin,
   leftToRightDiagonal,
   isRowAllOneTile,
   rightToLeftDiagonal,
@@ -88,6 +89,17 @@ describe('isColumnWin', () => {
   });
 });
 
+describe('isDiagonalWin', () => {
+  test('returns true for diagonal win', () => {
+    const board1 = [
+      ['X', '?', '?'],
+      ['?', 'X', '?'],
+      ['?', '?', 'X'],
+    ];
+    expect(isDiagonalWin(board1)).toBeTruthy();
+  });
+});
+
 describe('isGameWon', () => {
   test('returns true if game is won by row', () => {
     const board1 = [
@@ -103,6 +115,15 @@ describe('isGameWon', () => {
       ['X', '?', '?'],
       ['X', '?', '?'],
       ['X', '?', '?'],
+    ];
+    expect(isGameWon(board1)).toBeTruthy();
+  });
+
+  test('returns true if game is won by diagonal', () => {
+    const board1 = [
+      ['X', '?', '?'],
+      ['?', 'X', '?'],
+      ['?', '?', 'X'],
     ];
     expect(isGameWon(board1)).toBeTruthy();
   });

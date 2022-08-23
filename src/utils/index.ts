@@ -8,11 +8,8 @@ export const isRowAllOneTile = (row: String[]) => {
 };
 
 export const isRowWin = (board: BoardType) => {
-  // Row 1
   const isRowOneWin = isRowAllOneTile(board[0]);
-  // Row 2
   const isRowTwoWin = isRowAllOneTile(board[1]);
-  // Row 3
   const isRowThreeWin = isRowAllOneTile(board[2]);
 
   return isRowOneWin || isRowTwoWin || isRowThreeWin;
@@ -23,11 +20,21 @@ export const isColumnWin = (board: BoardType) => {
   return isRowWin(rotatedBoard);
 };
 
+export const isDiagonalWin = (board: BoardType) => {
+  const isLeftToRightWin = isRowAllOneTile(
+    leftToRightDiagonal(board)
+  );
+  const isRightToLeftWin = isRowAllOneTile(
+    rightToLeftDiagonal(board)
+  );
+
+  return isLeftToRightWin || isRightToLeftWin;
+};
+
 export const isGameWon = (board: BoardType) => {
-  // Row win
-  // Column win
-  return isRowWin(board) || isColumnWin(board);
-  // Diagonal win
+  return (
+    isRowWin(board) || isColumnWin(board) || isDiagonalWin(board)
+  );
 };
 
 export const rotateBoard = (board: BoardType) => {
