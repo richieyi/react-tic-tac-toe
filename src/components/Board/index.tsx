@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
 import { isGameWon } from '../../utils';
 
-const defaultGrid = [...Array(3)].map((_) => Array(3).fill('?'));
+const defaultBoard = [...Array(3)].map((_) => Array(3).fill('?'));
 const defaultTurn = 'X';
 
 export type PieceType = 'X' | 'O';
-export type GridType = String[][];
+export type BoardType = String[][];
 
 function Board() {
-  const [grid, setGrid] = useState<GridType>(defaultGrid);
+  const [board, setBoard] = useState<BoardType>(defaultBoard);
   const [turn, setTurn] = useState<PieceType>(defaultTurn);
-  console.log(grid);
+  console.log(board);
 
   useEffect(() => {
-    console.log(isGameWon(grid));
-  }, [grid]);
+    console.log(isGameWon(board));
+  }, [board]);
 
   function renderBoard() {
-    return grid.map((row, rowIdx) => {
+    return board.map((row, rowIdx) => {
       return row.map((tile, tileIdx) => (
         <button
-          data-testid="grid-tile"
+          data-testid="board-tile"
           key={`${tile}-${tileIdx}`}
           onClick={() => setPiece(rowIdx, tileIdx, turn)}
         >
@@ -35,9 +35,9 @@ function Board() {
     tileIdx: number,
     piece: PieceType
   ) {
-    const newGrid = [...grid];
-    newGrid[rowIdx].splice(tileIdx, 1, piece);
-    setGrid(newGrid);
+    const newBoard = [...board];
+    newBoard[rowIdx].splice(tileIdx, 1, piece);
+    setBoard(newBoard);
     if (turn === 'X') {
       setTurn('O');
     } else if (turn === 'O') {
@@ -46,13 +46,13 @@ function Board() {
   }
 
   function resetBoard() {
-    setGrid(defaultGrid);
+    setBoard(defaultBoard);
     setTurn(defaultTurn);
   }
 
   return (
     <div data-testid="board">
-      <div className="grid grid-cols-3 m-auto max-w-md py-12">
+      <div className="board board-cols-3 m-auto max-w-md py-12">
         {renderBoard()}
       </div>
       <div className="flex justify-center">

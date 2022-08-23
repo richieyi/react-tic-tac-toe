@@ -2,113 +2,113 @@ import { isRowWin, isGameWon, rotateBoard, isColumnWin } from '.';
 
 describe('isRowWin', () => {
   test('returns true for row win', () => {
-    const grid1 = [
+    const board1 = [
       ['X', 'X', 'X'],
       ['?', '?', '?'],
       ['?', '?', '?'],
     ];
-    expect(isRowWin(grid1)).toBeTruthy();
+    expect(isRowWin(board1)).toBeTruthy();
 
-    const grid2 = [
+    const board2 = [
       ['?', '?', '?'],
       ['X', 'X', 'X'],
       ['?', '?', '?'],
     ];
-    expect(isRowWin(grid2)).toBeTruthy();
+    expect(isRowWin(board2)).toBeTruthy();
 
-    const grid3 = [
+    const board3 = [
       ['?', '?', '?'],
       ['?', '?', '?'],
       ['O', 'O', 'O'],
     ];
-    expect(isRowWin(grid3)).toBeTruthy();
+    expect(isRowWin(board3)).toBeTruthy();
   });
 
   test('returns false for no row win', () => {
-    const grid1 = [
+    const board1 = [
       ['X', 'X', 'O'],
       ['?', '?', '?'],
       ['?', '?', '?'],
     ];
-    expect(isRowWin(grid1)).toBeFalsy();
+    expect(isRowWin(board1)).toBeFalsy();
   });
 });
 
 describe('isColumnWin', () => {
   test('returns true for column win', () => {
-    const grid1 = [
+    const board1 = [
       ['X', '?', '?'],
       ['X', '?', '?'],
       ['X', '?', '?'],
     ];
-    expect(isColumnWin(grid1)).toBeTruthy();
+    expect(isColumnWin(board1)).toBeTruthy();
 
-    const grid2 = [
+    const board2 = [
       ['?', 'X', '?'],
       ['?', 'X', '?'],
       ['?', 'X', '?'],
     ];
-    expect(isColumnWin(grid2)).toBeTruthy();
+    expect(isColumnWin(board2)).toBeTruthy();
 
-    const grid3 = [
+    const board3 = [
       ['?', '?', 'X'],
       ['?', '?', 'X'],
       ['?', '?', 'X'],
     ];
-    expect(isColumnWin(grid3)).toBeTruthy();
+    expect(isColumnWin(board3)).toBeTruthy();
   });
 
   test('returns false for no column win', () => {
-    const grid1 = [
+    const board1 = [
       ['X', '?', '?'],
       ['X', '?', '?'],
       ['O', '?', '?'],
     ];
-    expect(isColumnWin(grid1)).toBeFalsy();
+    expect(isColumnWin(board1)).toBeFalsy();
   });
 });
 
 describe('isGameWon', () => {
   test('returns true if game is won by row', () => {
-    const grid1 = [
+    const board1 = [
       ['X', 'X', 'X'],
       ['?', '?', '?'],
       ['?', '?', '?'],
     ];
-    expect(isGameWon(grid1)).toBeTruthy();
+    expect(isGameWon(board1)).toBeTruthy();
   });
 
   test('returns true if game is won by column', () => {
-    const grid1 = [
+    const board1 = [
       ['X', '?', '?'],
       ['X', '?', '?'],
       ['X', '?', '?'],
     ];
-    expect(isGameWon(grid1)).toBeTruthy();
+    expect(isGameWon(board1)).toBeTruthy();
   });
 
   test('returns false if game is not won', () => {
-    const grid1 = [
+    const board1 = [
       ['X', 'X', 'O'],
       ['?', '?', '?'],
       ['?', '?', '?'],
     ];
-    expect(isGameWon(grid1)).toBeFalsy();
+    expect(isGameWon(board1)).toBeFalsy();
   });
 });
 
 describe('rotateBoard', () => {
   test('rotates board', () => {
-    const grid1 = [
+    const board1 = [
       ['X', 'X', 'X'],
       ['O', 'O', 'O'],
       ['?', '?', '?'],
     ];
-    const grid2 = [
+    const board2 = [
       ['X', 'O', '?'],
       ['X', 'O', '?'],
       ['X', 'O', '?'],
     ];
-    expect(rotateBoard(grid1)).toEqual(grid2);
+    expect(rotateBoard(board1)).toEqual(board2);
   });
 });

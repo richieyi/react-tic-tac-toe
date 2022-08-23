@@ -19,7 +19,7 @@ test('renders default turn', () => {
 
 test('sets piece on board when clicked', () => {
   setup();
-  const els = screen.getAllByTestId('grid-tile');
+  const els = screen.getAllByTestId('board-tile');
   expect(els[0]).toBeInTheDocument();
   fireEvent.click(els[0]);
 

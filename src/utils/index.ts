@@ -1,42 +1,42 @@
-import { GridType } from '../components/Board';
+import { BoardType } from '../components/Board';
 
-export const isRowWin = (grid: GridType) => {
+export const isRowWin = (board: BoardType) => {
   // Row 1
   const isRowOneWin =
-    grid[0].filter((tile) => tile === 'X').length === 3 ||
-    grid[0].filter((tile) => tile === 'O').length === 3;
+    board[0].filter((tile) => tile === 'X').length === 3 ||
+    board[0].filter((tile) => tile === 'O').length === 3;
   // Row 2
   const isRowTwoWin =
-    grid[1].filter((tile) => tile === 'X').length === 3 ||
-    grid[1].filter((tile) => tile === 'O').length === 3;
+    board[1].filter((tile) => tile === 'X').length === 3 ||
+    board[1].filter((tile) => tile === 'O').length === 3;
   // Row 3
   const isRowThreeWin =
-    grid[2].filter((tile) => tile === 'X').length === 3 ||
-    grid[2].filter((tile) => tile === 'O').length === 3;
+    board[2].filter((tile) => tile === 'X').length === 3 ||
+    board[2].filter((tile) => tile === 'O').length === 3;
 
   return isRowOneWin || isRowTwoWin || isRowThreeWin;
 };
 
-export const isColumnWin = (grid: GridType) => {
-  const rotatedBoard = rotateBoard(grid);
+export const isColumnWin = (board: BoardType) => {
+  const rotatedBoard = rotateBoard(board);
   return isRowWin(rotatedBoard);
 };
 
-export const isGameWon = (grid: GridType) => {
+export const isGameWon = (board: BoardType) => {
   // Row win
   // Column win
-  return isRowWin(grid) || isColumnWin(grid);
+  return isRowWin(board) || isColumnWin(board);
   // Diagonal win
 };
 
-export const rotateBoard = (grid: GridType) => {
-  const newGrid: String[][] = [[], [], []];
-  for (let rowIdx = 0; rowIdx < grid.length; rowIdx++) {
-    const row = grid[rowIdx];
+export const rotateBoard = (board: BoardType) => {
+  const newBoard: String[][] = [[], [], []];
+  for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
+    const row = board[rowIdx];
     for (let tileIdx = 0; tileIdx < row.length; tileIdx++) {
       const tile = row[tileIdx];
-      newGrid[tileIdx].push(tile);
+      newBoard[tileIdx].push(tile);
     }
   }
-  return newGrid;
+  return newBoard;
 };
