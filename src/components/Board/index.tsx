@@ -1,41 +1,20 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
+import { isGameWon } from '../../utils';
 
 const defaultGrid = [...Array(3)].map((_) => Array(3).fill('?'));
 const defaultTurn = 'X';
 
-type Piece = 'X' | 'O';
+export type PieceType = 'X' | 'O';
+export type GridType = String[][];
 
 function Board() {
-  const [grid, setGrid] = useState<String[][]>(defaultGrid);
-  const [turn, setTurn] = useState<Piece>(defaultTurn);
+  const [grid, setGrid] = useState<GridType>(defaultGrid);
+  const [turn, setTurn] = useState<PieceType>(defaultTurn);
   console.log(grid);
 
-  const isRowWin = useCallback(() => {
-    // Row 1
-    const isRowOneWin =
-      grid[0].filter((tile) => tile === 'X').length === 3 ||
-      grid[0].filter((tile) => tile === 'O').length === 3;
-    // Row 2
-    const isRowTwoWin =
-      grid[1].filter((tile) => tile === 'X').length === 3 ||
-      grid[1].filter((tile) => tile === 'O').length === 3;
-    // Row 3
-    const isRowThreeWin =
-      grid[2].filter((tile) => tile === 'X').length === 3 ||
-      grid[2].filter((tile) => tile === 'O').length === 3;
-    return isRowOneWin || isRowTwoWin || isRowThreeWin;
-  }, [grid]);
-
-  const calculateWin = useCallback(() => {
-    // Row win
-    return isRowWin();
-    // Column win
-    // Diagonal win
-  }, [isRowWin]);
-
   useEffect(() => {
-    console.log(calculateWin());
-  }, [grid, calculateWin]);
+    console.log(isGameWon(grid));
+  }, [grid]);
 
   function renderBoard() {
     return grid.map((row, rowIdx) => {
@@ -51,10 +30,13 @@ function Board() {
     });
   }
 
-  function setPiece(rowIdx: number, tileIdx: number, piece: Piece) {
+  function setPiece(
+    rowIdx: number,
+    tileIdx: number,
+    piece: PieceType
+  ) {
     const newGrid = [...grid];
     newGrid[rowIdx].splice(tileIdx, 1, piece);
-    console.log(newGrid);
     setGrid(newGrid);
     if (turn === 'X') {
       setTurn('O');
