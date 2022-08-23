@@ -25,5 +25,13 @@ export const isGameWon = (grid: GridType) => {
 };
 
 export const rotateBoard = (grid: GridType) => {
-  return grid;
+  const newGrid: String[][] = [[], [], []];
+  for (let rowIdx = 0; rowIdx < grid.length; rowIdx++) {
+    const row = grid[rowIdx];
+    for (let tileIdx = 0; tileIdx < row.length; tileIdx++) {
+      const tile = row[tileIdx];
+      newGrid[tileIdx].push(tile);
+    }
+  }
+  return newGrid;
 };

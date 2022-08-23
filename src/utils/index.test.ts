@@ -58,13 +58,13 @@ describe('rotateBoard', () => {
   test('rotates board', () => {
     const grid1 = [
       ['X', 'X', 'X'],
-      ['?', '?', '?'],
+      ['O', 'O', 'O'],
       ['?', '?', '?'],
     ];
     const grid2 = [
-      ['X', '?', '?'],
-      ['X', '?', '?'],
-      ['X', '?', '?'],
+      ['X', 'O', '?'],
+      ['X', 'O', '?'],
+      ['X', 'O', '?'],
     ];
     expect(rotateBoard(grid1)).toEqual(grid2);
   });
