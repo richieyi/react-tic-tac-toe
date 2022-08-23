@@ -17,10 +17,15 @@ export const isRowWin = (grid: GridType) => {
   return isRowOneWin || isRowTwoWin || isRowThreeWin;
 };
 
+export const isColumnWin = (grid: GridType) => {
+  const rotatedBoard = rotateBoard(grid);
+  return isRowWin(rotatedBoard);
+};
+
 export const isGameWon = (grid: GridType) => {
   // Row win
-  return isRowWin(grid);
   // Column win
+  return isRowWin(grid) || isColumnWin(grid);
   // Diagonal win
 };
 

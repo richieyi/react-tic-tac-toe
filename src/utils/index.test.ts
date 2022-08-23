@@ -1,4 +1,4 @@
-import { isRowWin, isGameWon, rotateBoard } from '.';
+import { isRowWin, isGameWon, rotateBoard, isColumnWin } from '.';
 
 describe('isRowWin', () => {
   test('returns true for row win', () => {
@@ -34,12 +34,55 @@ describe('isRowWin', () => {
   });
 });
 
+describe('isColumnWin', () => {
+  test('returns true for column win', () => {
+    const grid1 = [
+      ['X', '?', '?'],
+      ['X', '?', '?'],
+      ['X', '?', '?'],
+    ];
+    expect(isColumnWin(grid1)).toBeTruthy();
+
+    const grid2 = [
+      ['?', 'X', '?'],
+      ['?', 'X', '?'],
+      ['?', 'X', '?'],
+    ];
+    expect(isColumnWin(grid2)).toBeTruthy();
+
+    const grid3 = [
+      ['?', '?', 'X'],
+      ['?', '?', 'X'],
+      ['?', '?', 'X'],
+    ];
+    expect(isColumnWin(grid3)).toBeTruthy();
+  });
+
+  test('returns false for no column win', () => {
+    const grid1 = [
+      ['X', '?', '?'],
+      ['X', '?', '?'],
+      ['O', '?', '?'],
+    ];
+    expect(isColumnWin(grid1)).toBeFalsy();
+  });
+});
+
 describe('isGameWon', () => {
   test('returns true if game is won by row', () => {
     const grid1 = [
       ['X', 'X', 'X'],
       ['?', '?', '?'],
       ['?', '?', '?'],
+    ];
+    expect(isGameWon(grid1)).toBeTruthy();
+  });
+
+  test('returns true if game is won by column', () => {
+    const grid1 = [
+      ['X', '?', '?'],
+      ['X', '?', '?'],
+      ['X', '?', '?'],
     ];
     expect(isGameWon(grid1)).toBeTruthy();
   });
