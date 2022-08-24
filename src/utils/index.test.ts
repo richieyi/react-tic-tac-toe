@@ -4,10 +4,8 @@ import {
   rotateBoard,
   isColumnWin,
   isDiagonalWin,
-  // leftToRightDiagonal,
   isRowAllOneTile,
   getDiagonal,
-  // rightToLeftDiagonal,
 } from '.';
 
 describe('isRowAllOneTile', () => {

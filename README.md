@@ -5,5 +5,4 @@
 ## Tools Used
 
 * React
-* Tailwind CSS
-
+* Testing: React Testing Library + Jest
