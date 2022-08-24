@@ -30,7 +30,7 @@ test('sets piece on board when clicked', () => {
   expect(el3).toBeInTheDocument();
 });
 
-test('renders game over state', () => {
+test('renders game over state and resets board', () => {
   setup();
   const tiles = screen.getAllByTestId('board-tile');
   expect(tiles[0]).toBeInTheDocument();
@@ -42,4 +42,11 @@ test('renders game over state', () => {
 
   const el = screen.getByText(/Game over!/i);
   expect(el).toBeInTheDocument();
+
+  const el2 = screen.getByTestId('reset-button');
+  expect(el2).toBeInTheDocument();
+  fireEvent.click(el2);
+
+  const el3 = screen.queryByText('Turn: O');
+  expect(el3).not.toBeInTheDocument();
 });
