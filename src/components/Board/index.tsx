@@ -5,15 +5,17 @@ const defaultBoard = [...Array(3)].map((_) => Array(3).fill('?'));
 const defaultTurn = 'X';
 
 export type PieceType = 'X' | 'O';
-export type BoardType = String[][];
+export type BoardType = string[][];
 
 function Board() {
   const [board, setBoard] = useState<BoardType>(defaultBoard);
   const [turn, setTurn] = useState<PieceType>(defaultTurn);
-  console.log(board);
+  const [isWon, setIsWon] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(isGameWon(board));
+    if (isGameWon(board)) {
+      setIsWon(true);
+    }
   }, [board]);
 
   function renderBoard() {
@@ -35,6 +37,10 @@ function Board() {
     tileIdx: number,
     piece: PieceType
   ) {
+    if (isWon) {
+      return;
+    }
+
     const newBoard = [...board];
     newBoard[rowIdx].splice(tileIdx, 1, piece);
     setBoard(newBoard);
@@ -48,19 +54,26 @@ function Board() {
   function resetBoard() {
     setBoard(defaultBoard);
     setTurn(defaultTurn);
+    setIsWon(false);
   }
 
   return (
     <div data-testid="board">
-      <div className="board board-cols-3 m-auto max-w-md py-12">
+      <div className="grid grid-cols-3 m-auto max-w-md py-12">
         {renderBoard()}
       </div>
       <div className="flex justify-center">
-        <span>Turn: {turn}</span>
+        <span>
+          {isWon
+            ? 'Game over! Reset to play again.'
+            : `Turn: ${turn}`}
+        </span>
       </div>
-      <div className="flex justify-center">
-        <button onClick={resetBoard}>Reset</button>
-      </div>
+      {isWon ? (
+        <div className="flex justify-center">
+          <button onClick={resetBoard}>Reset</button>
+        </div>
+      ) : null}
     </div>
   );
 }

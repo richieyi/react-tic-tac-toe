@@ -1,6 +1,6 @@
 import { BoardType } from '../components/Board';
 
-export const isRowAllOneTile = (row: String[]) => {
+export const isRowAllOneTile = (row: string[]) => {
   return (
     row.filter((tile) => tile === 'X').length === 3 ||
     row.filter((tile) => tile === 'O').length === 3
@@ -38,7 +38,7 @@ export const isGameWon = (board: BoardType) => {
 };
 
 export const rotateBoard = (board: BoardType) => {
-  const newBoard: String[][] = [[], [], []];
+  const newBoard: string[][] = [[], [], []];
   for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
     const row = board[rowIdx];
     for (let tileIdx = 0; tileIdx < row.length; tileIdx++) {
