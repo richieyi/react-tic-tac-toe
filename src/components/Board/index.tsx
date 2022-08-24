@@ -54,7 +54,6 @@ function Board() {
   }
 
   function resetBoard() {
-    console.log('reset');
     setBoard(emptyBoard);
     setTurn(defaultTurn);
     setIsWon(false);

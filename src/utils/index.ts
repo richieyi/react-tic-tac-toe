@@ -22,10 +22,10 @@ export const isColumnWin = (board: BoardType) => {
 
 export const isDiagonalWin = (board: BoardType) => {
   const isLeftToRightWin = isRowAllOneTile(
-    leftToRightDiagonal(board)
+    getDiagonal(board, 'left')
   );
   const isRightToLeftWin = isRowAllOneTile(
-    rightToLeftDiagonal(board)
+    getDiagonal(board, 'right')
   );
 
   return isLeftToRightWin || isRightToLeftWin;
@@ -49,23 +49,22 @@ export const rotateBoard = (board: BoardType) => {
   return newBoard;
 };
 
-export const leftToRightDiagonal = (board: BoardType) => {
-  const diagonal = [];
+type StartPosition = 'left' | 'right';
 
-  for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
-    const tile = board[rowIdx][rowIdx];
-    diagonal.push(tile);
-  }
-
-  return diagonal;
-};
-
-export const rightToLeftDiagonal = (board: BoardType) => {
+export const getDiagonal = (
+  board: BoardType,
+  startPosition: StartPosition
+) => {
   const diagonal = [];
 
   for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
     const row = board[rowIdx];
-    const tile = board[rowIdx][row.length - 1 - rowIdx];
+    let tile = '?';
+    if (startPosition === 'left') {
+      tile = board[rowIdx][rowIdx];
+    } else if (startPosition === 'right') {
+      tile = board[rowIdx][row.length - 1 - rowIdx];
+    }
     diagonal.push(tile);
   }
 
