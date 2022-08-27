@@ -3,37 +3,39 @@ import { isGameWon } from '../../utils';
 
 const defaultTurn = 'X';
 export type PieceType = 'X' | 'O';
-export type BoardType = string[][];
+export type FlatBoard = string[];
+export type TwoDBoard = string[][];
 
 function Board() {
-  const defaultBoard = [...Array(3)].map((_) => Array(3).fill('?'));
-  const [board, setBoard] = useState<BoardType>(defaultBoard);
+  // const defaultBoard = [...Array(3)].map((_) => Array(3).fill('?'));
+  const defaultBoard = Array(9).fill('?');
+  const [board, setBoard] = useState<FlatBoard>(defaultBoard);
   const [turn, setTurn] = useState<PieceType>(defaultTurn);
   const [isWon, setIsWon] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isGameWon(board)) {
-      setIsWon(true);
-    }
+    // if (isGameWon(board)) {
+    //   setIsWon(true);
+    // }
   }, [board]);
 
   function renderBoard() {
-    return board.map((row, rowIdx) => {
-      return row.map((tile, tileIdx) => (
+    return board.map((tile, tileIdx) => {
+      return (
         <button
           className="border border-black h-20 w-20 text-xl"
           data-testid="board-tile"
           key={`${tile}-${tileIdx}`}
-          onClick={() => setPiece(rowIdx, tileIdx, turn)}
+          onClick={() => setPiece(tileIdx, turn)}
         >
           {tile}
         </button>
-      ));
+      );
     });
   }
 
   function setPiece(
-    rowIdx: number,
+    // rowIdx: number,
     tileIdx: number,
     piece: PieceType
   ) {
@@ -42,7 +44,7 @@ function Board() {
     }
 
     const newBoard = [...board];
-    newBoard[rowIdx].splice(tileIdx, 1, piece);
+    newBoard.splice(tileIdx, 1, piece);
     setBoard(newBoard);
     if (turn === 'X') {
       setTurn('O');

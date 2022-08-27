@@ -1,4 +1,9 @@
-import { BoardType } from '../components/Board';
+import { FlatBoard, TwoDBoard } from '../components/Board';
+import chunk from 'lodash/chunk';
+
+export const create2dBoard = (board: FlatBoard) => {
+  return chunk(board, 3);
+};
 
 export const isRowAllOneTile = (row: string[]) => {
   return (
@@ -7,20 +12,22 @@ export const isRowAllOneTile = (row: string[]) => {
   );
 };
 
-export const isRowWin = (board: BoardType) => {
-  const isRowOneWin = isRowAllOneTile(board[0]);
-  const isRowTwoWin = isRowAllOneTile(board[1]);
-  const isRowThreeWin = isRowAllOneTile(board[2]);
+export const isRowWin = (board: FlatBoard) => {
+  const twoDBoard = create2dBoard(board);
+  const isRowOneWin = isRowAllOneTile(twoDBoard[0]);
+  const isRowTwoWin = isRowAllOneTile(twoDBoard[1]);
+  const isRowThreeWin = isRowAllOneTile(twoDBoard[2]);
 
   return isRowOneWin || isRowTwoWin || isRowThreeWin;
 };
 
-export const isColumnWin = (board: BoardType) => {
-  const rotatedBoard = rotateBoard(board);
+export const isColumnWin = (board: FlatBoard) => {
+  const twoDBoard = create2dBoard(board);
+  const rotatedBoard = rotateBoard(twoDBoard);
   return isRowWin(rotatedBoard);
 };
 
-export const isDiagonalWin = (board: BoardType) => {
+export const isDiagonalWin = (board: TwoDBoard) => {
   const isLeftToRightWin = isRowAllOneTile(
     getDiagonal(board, 'left')
   );
@@ -31,13 +38,13 @@ export const isDiagonalWin = (board: BoardType) => {
   return isLeftToRightWin || isRightToLeftWin;
 };
 
-export const isGameWon = (board: BoardType) => {
+export const isGameWon = (board: TwoDBoard) => {
   return (
     isRowWin(board) || isColumnWin(board) || isDiagonalWin(board)
   );
 };
 
-export const rotateBoard = (board: BoardType) => {
+export const rotateBoard = (board: TwoDBoard) => {
   const newBoard: string[][] = [[], [], []];
   for (let rowIdx = 0; rowIdx < board.length; rowIdx++) {
     const row = board[rowIdx];
@@ -52,7 +59,7 @@ export const rotateBoard = (board: BoardType) => {
 type StartPosition = 'left' | 'right';
 
 export const getDiagonal = (
-  board: BoardType,
+  board: TwoDBoard,
   startPosition: StartPosition
 ) => {
   const diagonal = [];
