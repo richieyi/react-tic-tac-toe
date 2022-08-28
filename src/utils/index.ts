@@ -1,7 +1,22 @@
 import { FlatBoard, TwoDBoard } from '../components/Board';
-import chunk from 'lodash/chunk';
 
-export const create2dBoard = (board: FlatBoard) => {
+const chunk = (board: FlatBoard, size: number) => {
+  const arr = [];
+  let temp = [];
+  for (let i = 0; i < board.length; i++) {
+    const tile = board[i];
+    temp.push(tile);
+
+    if (temp.length === size) {
+      arr.push(temp);
+      temp = [];
+    }
+  }
+
+  return arr;
+};
+
+export const getRows = (board: FlatBoard) => {
   return chunk(board, 3);
 };
 
@@ -13,17 +28,17 @@ export const isRowAllOneTile = (row: string[]) => {
 };
 
 export const isRowWin = (board: FlatBoard) => {
-  const twoDBoard = create2dBoard(board);
-  const isRowOneWin = isRowAllOneTile(twoDBoard[0]);
-  const isRowTwoWin = isRowAllOneTile(twoDBoard[1]);
-  const isRowThreeWin = isRowAllOneTile(twoDBoard[2]);
+  const rows = getRows(board);
+  const isRowOneWin = isRowAllOneTile(rows[0]);
+  const isRowTwoWin = isRowAllOneTile(rows[1]);
+  const isRowThreeWin = isRowAllOneTile(rows[2]);
 
   return isRowOneWin || isRowTwoWin || isRowThreeWin;
 };
 
 export const isColumnWin = (board: FlatBoard) => {
-  const twoDBoard = create2dBoard(board);
-  const rotatedBoard = rotateBoard(twoDBoard);
+  const rows = getRows(board);
+  const rotatedBoard = rotateBoard(rows);
   return isRowWin(rotatedBoard);
 };
 

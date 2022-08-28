@@ -1,5 +1,5 @@
 import {
-  create2dBoard,
+  getRows,
   isRowAllOneTile,
   isRowWin,
   isGameWon,
@@ -12,7 +12,18 @@ import {
 describe('getRows', () => {
   test('returns rows of board', () => {
     const board = Array.from({ length: 9 }, (_, i) => String(i + 1));
-    expect(create2dBoard(board)).toEqual([
+    expect(getRows(board)).toEqual([
+      ['1', '2', '3'],
+      ['4', '5', '6'],
+      ['7', '8', '9'],
+    ]);
+  });
+});
+
+describe('getColumns', () => {
+  test('returns columns of board', () => {
+    const board = Array.from({ length: 9 }, (_, i) => String(i + 1));
+    expect(getRows(board)).toEqual([
       ['1', '2', '3'],
       ['4', '5', '6'],
       ['7', '8', '9'],
